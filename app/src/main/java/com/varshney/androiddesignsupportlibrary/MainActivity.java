@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.addTab(tabs.newTab().setText("Tab 1"));
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         //After Executing next line tabs name changes from Tab1,Tab2,Tab3 to list,tile,card respectively.
         tabs.setupWithViewPager(viewPager);
 
+
     }
     private void setUpViewPager(ViewPager viewPager)
     {
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new CardContentFragment(), "Card");
         viewPager.setAdapter(adapter);
     }
+
+
 
     static class Adapter extends FragmentPagerAdapter{
 
@@ -63,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             return mFragmentList.size();
         }
 
-        public void addFragment(Fragment fragment, String title) {
+        public void addFragment (Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }
