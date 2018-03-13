@@ -1,6 +1,8 @@
 package com.varshney.androiddesignsupportlibrary;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,8 +40,18 @@ public class CardContentFragment extends Fragment {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.item_card, parent, false));
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 
