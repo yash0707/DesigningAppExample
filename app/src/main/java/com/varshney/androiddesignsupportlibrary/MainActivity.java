@@ -81,7 +81,12 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_button) {
+        if(id == android.R.id.home)
+        {
+            mDrawerLayout.openDrawer(GravityCompat.START);
+            return true;
+        }
+        else if (id == R.id.action_button) {
             return true;
         } else if (id == R.id.action_settings) {
             mDrawerLayout.openDrawer(GravityCompat.START);
