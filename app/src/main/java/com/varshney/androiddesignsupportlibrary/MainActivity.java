@@ -1,5 +1,7 @@
 package com.varshney.androiddesignsupportlibrary;
 
+import android.graphics.Color;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,12 +11,14 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Adapter;
 
 import java.util.ArrayList;
@@ -23,12 +27,14 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
+    CoordinatorLayout content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -47,6 +53,39 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         mDrawerLayout = findViewById(R.id.drawer);
        // mDrawerLayout.openDrawer(GravityCompat.START);
+
+        content = findViewById(R.id.content);
+        mDrawerLayout.setScrimColor(Color.TRANSPARENT);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,
+                R.string.open,R.string.close){
+
+        private float scaleFactor = 6f;
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+
+                //slideOffset =0 close, 1 open ,0.5 in between
+                float slideX = drawerView.getWidth() * slideOffset;
+
+                //Now Play With slideX whatever way u want.
+                content.setTranslationX(slideX);
+
+//                content.setScaleX(1 - slideOffset);
+//                content.setScaleY(1 - slideOffset);
+
+                //Next Two lines give some effects. Previous Two gives some other effect.
+                content.setScaleX(1 - (slideOffset / scaleFactor));
+                content.setScaleY(1 - (slideOffset / scaleFactor));
+
+            }
+
+        };
+
+        mDrawerLayout.setDrawerElevation(0f);
+        mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
+
+
+
 
         // Adding menu icon on toolbar
         ActionBar supportActionBar = getSupportActionBar();
